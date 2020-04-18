@@ -13,7 +13,11 @@ class ProductList extends Component {
         <h3> Items </h3>
         <ul className="product-list">
           {this.props.products.map((prod) => (
-            <ProductSummary key={prod.id} productData={prod} />
+            <ProductSummary
+              key={prod.id}
+              productData={prod}
+              onAddToCart={this.props.onAddToCart}
+            />
           ))}
         </ul>
       </div>

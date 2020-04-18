@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
+// Components
+import ProductAddToCart from "./productaddtocart";
+
 // CSS
 import "../styles/productsummary.css";
 
@@ -25,6 +28,10 @@ class ProductSummary extends Component {
         <div className="product-summary__details-wrapper">
           <span>{this.formatCurrency()}</span>
         </div>
+        <ProductAddToCart
+          productData={this.props.productData}
+          onAddToCart={this.props.onAddToCart}
+        ></ProductAddToCart>
       </div>
     );
   }

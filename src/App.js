@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 // Components
 import NavBar from "./components/navbar";
-import ProductList from "./components/Product/productlist";
-import ProductDetails from "./components/Product/productdetails";
+import ProductList from "./components/product/productlist";
+import ProductDetails from "./components/product/productdetails";
 
 // CSS
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -31,6 +31,21 @@ class App extends Component {
         productUrl: "samsung-galaxy-s10e",
       },
     ],
+    cart: [],
+  };
+
+  addToCartAction = (productId) => {
+    console.log("nicanix", productId);
+
+    const products = [...this.state.products];
+    const cart = [...this.state.cart];
+    cart.push({ id: productId, quantity: 1 });
+
+    {
+      /* TODO: Add checking if item exists in cart, increment quantity */
+    }
+
+    this.setState({ products: products, cart: cart });
   };
 
   render() {
@@ -41,14 +56,20 @@ class App extends Component {
           <div>
             <NavBar />
             <Switch>
-              <Route path="/product/xiaomi-gt">
-                <ProductDetails
-                  productData={this.state.products[0]}
-                ></ProductDetails>
-              </Route>
-
+              {this.state.products.map((product) => (
+                <Route key={product.id} path={"/product/" + product.productUrl}>
+                  <ProductDetails
+                    productData={product}
+                    onAddToCart={this.addToCartAction}
+                  ></ProductDetails>
+                </Route>
+              ))}
+              ;
               <Route path="/">
-                <ProductList products={this.state.products}></ProductList>
+                <ProductList
+                  products={this.state.products}
+                  onAddToCart={this.addToCartAction}
+                ></ProductList>
               </Route>
             </Switch>
           </div>
