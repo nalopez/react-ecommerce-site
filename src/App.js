@@ -5,9 +5,11 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import NavBar from "./components/navbar";
 import ProductList from "./components/product/productlist";
 import ProductDetails from "./components/product/productdetails";
+import Cart from "./components/checkout/cart";
 
 // CSS
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./components/styles/templates.css";
 
 // Images
 import XiaomiGT from "./images/products/xiaomi-9T.jpg";
@@ -15,31 +17,29 @@ import SamsungGalaxyS10e from "./images/products/samsung-galaxy-s10e.jpg";
 
 class App extends Component {
   state = {
-    products: [
-      {
+    products: {
+      "1": {
         id: 1,
         productName: "Xiaomi Mi 9T Pro 6GB RAM",
         productPrice: "16839.31",
         productImage: XiaomiGT,
         productUrl: "xiaomi-gt",
       },
-      {
+      "2": {
         id: 2,
         productName: "Samsung Galaxy S10e",
         productPrice: "10000.00",
         productImage: SamsungGalaxyS10e,
         productUrl: "samsung-galaxy-s10e",
       },
-    ],
-    cart: [],
+    },
+    cart: { 1: { id: 1, quantity: 1 } },
   };
 
   addToCartAction = (productId) => {
-    console.log("nicanix", productId);
-
-    const products = [...this.state.products];
-    const cart = [...this.state.cart];
-    cart.push({ id: productId, quantity: 1 });
+    const products = { ...this.state.products };
+    const cart = { ...this.state.cart };
+    cart[productId] = { id: productId, quantity: 1 };
 
     {
       /* TODO: Add checking if item exists in cart, increment quantity */
@@ -56,15 +56,25 @@ class App extends Component {
           <div>
             <NavBar />
             <Switch>
-              {this.state.products.map((product) => (
-                <Route key={product.id} path={"/product/" + product.productUrl}>
+              {Object.keys(this.state.products).map((product) => (
+                <Route
+                  key={this.state.products[product].id}
+                  path={"/product/" + this.state.products[product].productUrl}
+                >
                   <ProductDetails
-                    productData={product}
+                    productData={this.state.products[product]}
                     onAddToCart={this.addToCartAction}
                   ></ProductDetails>
                 </Route>
               ))}
-              ;
+
+              <Route path="/cart">
+                <Cart
+                  cartItems={this.state.cart}
+                  products={this.state.products}
+                ></Cart>
+              </Route>
+
               <Route path="/">
                 <ProductList
                   products={this.state.products}

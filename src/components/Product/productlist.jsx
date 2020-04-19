@@ -12,10 +12,10 @@ class ProductList extends Component {
       <div className="product-list-wrapper">
         <h3> Items </h3>
         <ul className="product-list">
-          {this.props.products.map((prod) => (
+          {Object.keys(this.props.products).map((productKey) => (
             <ProductSummary
-              key={prod.id}
-              productData={prod}
+              key={this.props.products[productKey].id}
+              productData={this.props.products[productKey]}
               onAddToCart={this.props.onAddToCart}
             />
           ))}
