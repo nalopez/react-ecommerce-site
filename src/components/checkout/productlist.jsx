@@ -18,6 +18,9 @@ class ProductList extends Component {
               this.props.cartItems[cartItemKey].id
             )}
             quantity={this.props.cartItems[cartItemKey].quantity}
+            onIncreaseItem={this.props.onIncreaseItem}
+            onDecreaseItem={this.props.onDecreaseItem}
+            onRemoveItem={this.props.onRemoveItem}
           ></ProductSummary>
         ))}
       </div>

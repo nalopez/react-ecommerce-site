@@ -7,6 +7,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 class ProductSummary extends Component {
   render() {
     const {
+      id,
       productName,
       productUrl,
       productImage,
@@ -24,9 +25,22 @@ class ProductSummary extends Component {
         <div>{productPrice}</div>
         <div>{this.props.quantity}</div>
         <div>
-          <button>+</button>
-          <button>-</button>
-          <button>
+          <button
+            className="checkout__add-item"
+            onClick={() => this.props.onIncreaseItem(id)}
+          >
+            +
+          </button>
+          <button
+            className="checkout__minus-item"
+            onClick={() => this.props.onDecreaseItem(id)}
+          >
+            -
+          </button>
+          <button
+            className="checkout__remove-item"
+            onClick={() => this.props.onRemoveItem(id)}
+          >
             <FontAwesomeIcon icon={faTrash} />
           </button>
         </div>

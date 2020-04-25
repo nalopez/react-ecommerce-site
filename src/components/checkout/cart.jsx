@@ -14,6 +14,9 @@ class Cart extends Component {
       <ProductList
         cartItems={this.props.cartItems}
         products={this.props.products}
+        onIncreaseItem={this.props.onIncreaseItem}
+        onDecreaseItem={this.props.onDecreaseItem}
+        onRemoveItem={this.props.onRemoveItem}
       ></ProductList>
     ) : (
       <div className="empty-list-message">There are no items in your cart.</div>
