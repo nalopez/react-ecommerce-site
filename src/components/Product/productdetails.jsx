@@ -7,6 +7,15 @@ import ProductAddToCart from "./productaddtocart";
 import "../styles/productdetails.css";
 
 class ProductDetails extends Component {
+  formatCurrency = () => {
+    let formatter = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "PHP",
+    });
+
+    return formatter.format(this.props.productData.productPrice);
+  };
+
   render() {
     const { productName, productImage } = this.props.productData;
 
@@ -25,6 +34,7 @@ class ProductDetails extends Component {
               <li>Spec 3</li>
             </ul>
           </div>
+          <div> {this.formatCurrency()}</div>
           <ProductAddToCart
             productData={this.props.productData}
             onAddToCart={this.props.onAddToCart}

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 // Components
-import NavBar from "./components/navbar";
+import NavBar from "./components/partials/navbar";
 import ProductList from "./components/product/productlist";
 import ProductDetails from "./components/product/productdetails";
 import ProductAddedToCart from "./components/product/productaddedtocart";
@@ -23,20 +23,20 @@ class App extends Component {
       "1": {
         id: 1,
         productName: "Xiaomi Mi 9T Pro 6GB RAM",
-        productPrice: "16839.31",
+        productPrice: 16839.31,
         productImage: XiaomiGT,
         productUrl: "xiaomi-gt",
       },
       "2": {
         id: 2,
         productName: "Samsung Galaxy S10e",
-        productPrice: "10000.00",
+        productPrice: 10000.0,
         productImage: SamsungGalaxyS10e,
         productUrl: "samsung-galaxy-s10e",
       },
     },
     cart: { 1: { id: 1, quantity: 1 } },
-    modal: false,
+    modal: { show: false, header: "", body: "" },
   };
 
   addToCartAction = (productId) => {
@@ -52,7 +52,11 @@ class App extends Component {
       cart[productId] = { id: productId, quantity: 1 };
     }
 
-    this.setState({ products: products, cart: cart, modal: !modal });
+    modal.show = !modal.show;
+    modal.header = "Product Added to Cart";
+    modal.body = <ProductAddedToCart></ProductAddedToCart>;
+
+    this.setState({ products: products, cart: cart, modal: modal });
   };
 
   increaseItemAction = (productId) => {
@@ -96,8 +100,9 @@ class App extends Component {
     const products = { ...this.state.products };
     const cart = { ...this.state.cart };
     const modal = this.state.modal;
+    modal.show = !modal.show;
 
-    this.setState({ products: products, cart: cart, modal: !modal });
+    this.setState({ products: products, cart: cart, modal: modal });
   };
 
   render() {
@@ -106,13 +111,11 @@ class App extends Component {
         <header className="App-header"></header>
         <ModalComponent
           modal={this.state.modal}
-          modalHeader="Product Added to Cart"
-          modalBody={<ProductAddedToCart></ProductAddedToCart>}
           onToggleModal={this.toggleModalAction}
         ></ModalComponent>
         <Router>
           <div>
-            <NavBar />
+            <NavBar cart={this.state.cart} />
             <Switch>
               {Object.keys(this.state.products).map((product) => (
                 <Route

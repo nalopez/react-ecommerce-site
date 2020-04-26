@@ -6,3 +6,17 @@
 .shop-navbar__link {
   color: #ffffff;
 }
+
+.shop-navbar__cart-count {
+  display: inline-block;
+  background: #ffffff;
+  color: #f60ebb;
+  font-size: 15px;
+  margin-left: 10px;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 30px;
+}

@@ -9,7 +9,12 @@ import "../styles/productsummary.css";
 
 class ProductSummary extends Component {
   formatCurrency = () => {
-    return this.props.productData.productPrice;
+    let formatter = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "PHP",
+    });
+
+    return formatter.format(this.props.productData.productPrice);
   };
 
   render() {
