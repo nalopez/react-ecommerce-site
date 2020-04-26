@@ -35,7 +35,7 @@ class App extends Component {
         productUrl: "samsung-galaxy-s10e",
       },
     },
-    cart: { 1: { id: 1, quantity: 1 } },
+    cart: {},
     modal: { show: false, header: "", body: "" },
   };
 
